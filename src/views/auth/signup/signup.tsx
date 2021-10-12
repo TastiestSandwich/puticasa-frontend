@@ -12,7 +12,7 @@ const Signup = () => {
 
   useEffect(() => {
     if (state.token !== null) {
-      window.location.replace('http://localhost:3000/dashboard');
+      window.location.replace('http://localhost:3000/welcome');
     } else {
       setLoading(false);
     }
@@ -38,7 +38,7 @@ const Signup = () => {
       .then(data => {
         if (data.key) {
           dispatch({type: 'SET_TOKEN', payload: data.key})
-          window.location.replace('http://localhost:3000/dashboard');
+          window.location.replace('http://localhost:3000/welcome');
         } else {
           setEmail('');
           setPassword1('');

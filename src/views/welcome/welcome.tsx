@@ -1,16 +1,20 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { globalStoreContext } from '../../components/context/globalStore';
-import './dashboard.css';
+import './welcome.css';
 
-const Dashboard = () => {
-  const [loading, setLoading] = useState(true);
+const Welcome = () => {
+  const [loadingUser, setLoadingUser] = useState(true);
+  const [loadingHouses, setLoadingHouses] = useState(true);
+  const [houses, setHouses] = useState(null);
 
   const { state, dispatch } = useContext(globalStoreContext);
 
   useEffect(() => {
     if (state.token === null) {
+      // go back to login
       window.location.replace('http://localhost:3000/');
-    } else {
+    } else if (state.user === null) {
+      // fetch user
       fetch('http://127.0.0.1:8000/api/v1/users/auth/user/', {
         method: 'GET',
         headers: {
@@ -22,14 +26,25 @@ const Dashboard = () => {
         .then(data => {
           console.log(data);
           dispatch({ type: 'SET_USER', payload: data});
-          setLoading(false);
+          setLoadingUser(false);
         });
+    } else if (state.activeHouse === null) {
+      // fetch houses
+      setLoadingUser(false);
+    } else {
+      // redirect to home
     }
   }, []);
 
   function isUserReady(): boolean {
-    if(loading === true) { return false }
+    if(loadingUser === true) { return false }
     if(state.user) { return true }
+    return false;
+  }
+
+  function areHousesReady(): boolean {
+    if(loadingHouses === true) { return false }
+    if(houses) { return true }
     return false;
   }
 
@@ -37,9 +52,8 @@ const Dashboard = () => {
     <div>
       {isUserReady() && (
         <Fragment>
-        <div className="dash-content">
-          <h1>Dashboard</h1>
-          <h2>Hello {state.user?.email}!</h2>
+        <div className="welcome-content">
+          <h2>Welcome {state.user?.email}!</h2>
         </div>
         </Fragment>
       )}
@@ -47,4 +61,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Welcome;

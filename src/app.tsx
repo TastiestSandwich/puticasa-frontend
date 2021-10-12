@@ -4,7 +4,7 @@ import Navbar from './components/navbar/navbar';
 import Login from './views/auth/login/login';
 import Signup from './views/auth/signup/signup';
 import Logout from './views/auth/logout/logout';
-import Dashboard from './views/home/dashboard';
+import Welcome from './views/welcome/welcome';
 import './app.css';
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
           <Route path='/login' component={Login} exact />
           <Route path='/signup' component={Signup} exact />
           <Route path='/logout' component={Logout} exact />
-          <Route path='/dashboard' component={Dashboard} exact />
+          <Route path='/welcome' component={Welcome} exact />
         </Switch>
       </Router>
     </div>

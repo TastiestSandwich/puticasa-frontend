@@ -11,7 +11,7 @@ const Login = () => {
 
   useEffect(() => {
     if (state.token !== null) {
-      window.location.replace('http://localhost:3000/dashboard');
+      window.location.replace('http://localhost:3000/welcome');
     } else {
       setLoading(false);
     }
@@ -40,11 +40,11 @@ const Login = () => {
           localStorage.setItem('token', data.key);
           */
           dispatch({type: 'SET_TOKEN', payload: data.key});
-          window.location.replace('http://localhost:3000/dashboard');
+          window.location.replace('http://localhost:3000/welcome');
         } else {
           setEmail('');
           setPassword('');
-          localStorage.clear();
+          dispatch({type: 'LOGOUT'});
           setErrors(true);
         }
       });

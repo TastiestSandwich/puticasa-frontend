@@ -61,6 +61,18 @@ const GlobalStateProvider = ({ children }: PropsWithChildren<any>) => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
     }, [state])
 
+    // use the newest data on every LocalStorage change
+    useEffect(() => {
+        window.addEventListener('storage', () => {
+            const persistedData = localStorage.getItem(STORAGE_KEY)
+            const newState = persistedData ? (JSON.parse(persistedData) as GlobalState) : null
+
+            if (newState) {
+                dispatch({ type: 'SYNC_REQUEST', payload: newState })
+            }
+        })
+    }, [])
+
     return <Provider value={{ state, dispatch }}>{children}</Provider>
 }
 
