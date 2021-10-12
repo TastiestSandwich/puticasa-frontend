@@ -1,0 +1,30 @@
+.navbar{
+  display: flex;
+  align-items: center;
+  border-style: solid;
+  border-color: black;
+}
+
+.nav-home{
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.nav-logo{
+  height: auto;
+  width: fit-content;
+}
+
+.nav-title{;
+}
+
+.nav-content{
+  margin-right: 1em;
+}
+
+.puti-logo img {
+  width: 30%;
+  object-fit: contain;
+  animation: puti-logo-beat infinite 1s ease-out;
+}

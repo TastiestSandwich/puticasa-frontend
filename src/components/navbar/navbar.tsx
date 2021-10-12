@@ -1,5 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import './navbar.css';
+import Logo from '../logo/logo';
 
 const Navbar = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -12,30 +14,25 @@ const Navbar = () => {
 
   return (
     <nav>
-      <h1>Puticasa</h1>
-      <ul>
-        {isAuth === true ? (
-          <Fragment>
-            {' '}
-            <li>
-              <Link to='/dashboard'>Dashboard</Link>
-            </li>
-            <li>
-              <Link to='/logout'>Logout</Link>
-            </li>
-          </Fragment>
-        ) : (
-          <Fragment>
-            {' '}
-            <li>
-              <Link to='/login'>Login</Link>
-            </li>
-            <li>
-              <Link to='/signup'>Signup</Link>
-            </li>
-          </Fragment>
-        )}
-      </ul>
+    {isAuth === true && (
+      <div className="navbar">
+        <div className="nav-home">
+          <div className="nav-logo">
+            <Link to='/dashboard'>
+              <Logo />
+            </Link>
+          </div>
+          <div className="nav-title">
+            <h1>Puticasa</h1>
+          </div>
+        </div>
+        <div className="nav-content">
+          <div>
+            <Link to='/logout'>Logout</Link>
+          </div>
+        </div>
+      </div>
+     )}
     </nav>
   );
 };

@@ -4,10 +4,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './app';
 import reportWebVitals from './reportWebVitals';
+import { GlobalStateProvider } from './components/context/globalStore';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <GlobalStateProvider>
+      <App />
+    </GlobalStateProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,7 +1,9 @@
 import React from 'react';
 import './start.css';
 import Logo from '../../components/logo/logo';
-import { Button } from 'reactstrap';
+import Login from '../auth/login/login';
+import Signup from '../auth/signup/signup';
+// import { Button } from 'reactstrap';
 
 
 interface StartState {
@@ -27,12 +29,12 @@ export default class Start extends React.Component<{}, StartState> {
           </div>
         </div>
         <div className="body-zone">
-          <Button
-            size="lg"
-            outline color="success"
-            onClick={() => alert("OLEEEE")}>
-          COME IN
-          </Button>
+          <div className="left-column">
+            <Login />
+          </div>
+          <div className="right-column">
+            <Signup />
+          </div>
         </div>
       </main>
       )

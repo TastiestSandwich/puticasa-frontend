@@ -1,18 +1,34 @@
 .title-zone{
-  padding: 5em;
+  padding: 3em;
   width: 100%;
   text-align: center;
+  height: 50%;
 }
 
 .logo-zone{
+  width: fit-content;
+  margin: auto;
+}
+
+.puti-logo img {
+  width: 80%;
+  object-fit: contain;
   animation: puti-logo-beat infinite 1s ease-out;
 }
 
 .body-zone{
   justify-content: center;
-  align-items: center;
   display: flex;
   flex-direction: row;
+  padding: 2em;
+}
+
+.left-column{
+  margin-right: 1em;
+}
+
+.right-column{
+  margin-left:  1em;
 }
 
 .btn{
