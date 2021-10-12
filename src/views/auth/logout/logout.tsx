@@ -1,11 +1,14 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, useContext, Fragment } from 'react';
+import { globalStoreContext } from '../../../components/context/globalStore';
 
 const Logout = () => {
   const [loading, setLoading] = useState(true);
 
+  const {state, dispatch} = useContext(globalStoreContext);
+
   useEffect(() => {
-    if (localStorage.getItem('token') == null) {
-      window.location.replace('http://localhost:3000/login');
+    if (state.token == null) {
+      window.location.replace('http://localhost:3000/');
     } else {
       setLoading(false);
     }
@@ -18,14 +21,13 @@ const Logout = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Token ${localStorage.getItem('token')}`
+        Authorization: `Token ${state.token}`
       }
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-        localStorage.clear();
-        window.location.replace('http://localhost:3000/login');
+        dispatch({type: 'LOGOUT'})
+        window.location.replace('http://localhost:3000/');
       });
   };
 

@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (state.token === null) {
-      window.location.replace('http://localhost:3000/login');
+      window.location.replace('http://localhost:3000/');
     } else {
       fetch('http://127.0.0.1:8000/api/v1/users/auth/user/', {
         method: 'GET',

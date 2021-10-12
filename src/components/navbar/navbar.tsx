@@ -1,20 +1,16 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
 import Logo from '../logo/logo';
+import { globalStoreContext } from '../context/globalStore';
 
 const Navbar = () => {
-  const [isAuth, setIsAuth] = useState(false);
 
-  useEffect(() => {
-    if (localStorage.getItem('token') !== null) {
-      setIsAuth(true);
-    }
-  }, []);
+  const {state, dispatch} = useContext(globalStoreContext);
 
   return (
     <nav>
-    {isAuth === true && (
+    {state.user && (
       <div className="navbar">
         <div className="nav-home">
           <div className="nav-logo">

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { globalStoreContext } from '../../../components/context/globalStore';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -7,8 +8,10 @@ const Signup = () => {
   const [errors, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const {state, dispatch} = useContext(globalStoreContext);
+
   useEffect(() => {
-    if (localStorage.getItem('token') !== null) {
+    if (state.token !== null) {
       window.location.replace('http://localhost:3000/dashboard');
     } else {
       setLoading(false);
@@ -34,14 +37,13 @@ const Signup = () => {
       .then(res => res.json())
       .then(data => {
         if (data.key) {
-          localStorage.clear();
-          localStorage.setItem('token', data.key);
+          dispatch({type: 'SET_TOKEN', payload: data.key})
           window.location.replace('http://localhost:3000/dashboard');
         } else {
           setEmail('');
           setPassword1('');
           setPassword2('');
-          localStorage.clear();
+          dispatch({type: 'LOGOUT'})
           setErrors(true);
         }
       });

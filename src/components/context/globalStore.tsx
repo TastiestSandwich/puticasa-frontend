@@ -28,6 +28,14 @@ const reducer = (state: GlobalState, action: Action) => {
             return {
                 ...state,
                 token: action.payload
+            };
+        case 'SYNC_REQUEST':
+            return {
+                ...action.payload
+            }
+        case 'LOGOUT':
+            return {
+                ...initialStoreContext.state
             }
         default:
             return assertNever(action);
@@ -39,7 +47,7 @@ const { Provider } = globalStoreContext
 
 const GlobalStateProvider = ({ children }: PropsWithChildren<any>) => {
 
-    const STORAGE_KEY = 'MY_DATA'
+    const STORAGE_KEY = 'PUTIDATA'
 
     // load data initially
     const [state, dispatch] = useReducer(reducer, initialStoreContext.state, (state) => {

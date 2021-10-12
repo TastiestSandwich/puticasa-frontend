@@ -22,7 +22,7 @@ export interface House {
   pk: number
 }
 
-export type Action = | SetUserAction | SetActiveHouseAction | SetTokenAction
+export type Action = | SetUserAction | SetActiveHouseAction | SetTokenAction | StorageSyncAction | LogoutAction
 
 export interface SetUserAction {
   type: 'SET_USER',
@@ -37,4 +37,13 @@ export interface SetActiveHouseAction {
 export interface SetTokenAction {
   type: 'SET_TOKEN',
   payload: string
+}
+
+export interface StorageSyncAction {
+    type: 'SYNC_REQUEST'
+    payload: GlobalState
+}
+
+export interface LogoutAction {
+  type: 'LOGOUT'
 }
