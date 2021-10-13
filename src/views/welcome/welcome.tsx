@@ -30,10 +30,26 @@ const Welcome = () => {
         });
     } else if (state.activeHouse === null) {
       // fetch houses
-      setLoadingUser(false);
+      const url = 'http://127.0.0.1:8000/api/residents/'
+      console.log('Making call at ' + url)
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${state.token}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          setLoadingHouses(false);
+        })
+      
     } else {
       // redirect to home
     }
+
+    setLoadingUser(false);
   }, []);
 
   function isUserReady(): boolean {
