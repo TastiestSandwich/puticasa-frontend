@@ -1,3 +1,31 @@
-.house-content{
+.welcome-content{
   margin-top: 1em;
+}
+
+.welcome-housecards{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 50%;
+  align-items: center;
+}
+
+.housecard-tenant{
+  margin-top: 1.5em;
+}
+
+.housecard-guest{
+  margin-top: 1.5em;
+}
+
+.housecard-tenant-list{
+  display: flex;
+  flex-direction: row;
+  margin: 1em;
+}
+
+.housecard-guest-list{
+  display: flex;
+  flex-direction: row;
+  margin: 1em;
 }

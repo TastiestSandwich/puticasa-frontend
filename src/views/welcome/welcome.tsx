@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { globalStoreContext } from '../../components/context/globalStore';
+import { Resident } from './houseCard/houseTypes';
+import HouseCard from './houseCard/houseCard';
 import './welcome.css';
 
 const Welcome = () => {
   const [loadingUser, setLoadingUser] = useState(true);
   const [loadingHouses, setLoadingHouses] = useState(true);
-  const [houses, setHouses] = useState(null);
+  const [residents, setResidents] = useState([] as Resident[]);
 
   const { state, dispatch } = useContext(globalStoreContext);
 
@@ -42,6 +44,7 @@ const Welcome = () => {
         .then(res => res.json())
         .then(data => {
           console.log(data);
+          setResidents(data as Resident[])
           setLoadingHouses(false);
         })
       
@@ -58,10 +61,38 @@ const Welcome = () => {
     return false;
   }
 
-  function areHousesReady(): boolean {
+  function areResidentsReady(): boolean {
     if(loadingHouses === true) { return false }
-    if(houses) { return true }
+    if(residents) { return true }
     return false;
+  }
+
+  function renderHouses(residents: Resident[]) {
+    if(!areResidentsReady) {
+      return (<div></div>)
+    
+    } else {
+      return (
+      <>
+      <div className="housecard-tenant">
+        <h3>You live here</h3>
+        <div className="housecard-tenant-list">
+        { residents.map((resident) => (
+           <HouseCard resident={resident} key={resident.id} />
+         ))}
+        </div>
+      </div>
+      <div className="housecard-guest">
+        <h3>You have visited</h3>
+        <div className="housecard-guest-list">
+        { residents.map((resident) => (
+           <HouseCard resident={resident} key={resident.id} />
+         ))}
+        </div>
+      </div>
+      </>
+      )
+    }
   }
 
   return (
@@ -73,6 +104,9 @@ const Welcome = () => {
         </div>
         </Fragment>
       )}
+      <div className="welcome-housecards">
+        { renderHouses(residents) }
+      </div>
     </div>
   );
 };

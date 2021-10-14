@@ -1,0 +1,15 @@
+.house-card{
+  border-style: solid;
+  margin-left: 1em;
+  margin-right: 1em;
+  cursor: pointer;
+}
+
+.house-name{
+  font-weight: bold;
+  font-size: large;
+}
+
+.house-description{
+  font-style: italic;
+}
