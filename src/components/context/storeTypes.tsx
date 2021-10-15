@@ -5,7 +5,8 @@ export type GlobalContext = { state: GlobalState; dispatch: Dispatch<Action> }
 
 export interface GlobalState {
   user: User | null
-  activeHouse: House | null
+  house: House | null
+  resident: Resident | null
   token: string | null
 }
 
@@ -17,21 +18,41 @@ export interface User {
   username: string
 }
 
-export interface House {
-  name: string,
-  pk: number
+export interface Resident {
+  id: number,
+  user: number,
+  house: number,
+  type: number,
+  status: number,
+  last_modified_date: string,
+  start_date: string,
+  end_date: string | null
 }
 
-export type Action = | SetUserAction | SetActiveHouseAction | SetTokenAction | StorageSyncAction | LogoutAction
+export interface House {
+  name: string,
+  description: string,
+  status: number,
+  start_date: string,
+  last_modified_date: string,
+  end_date: string | null
+}
+
+export interface HouseResidentPayload {
+  house: House | null,
+  resident: Resident | null
+}
+
+export type Action = | SetUserAction | SetHouseResidentAction | SetTokenAction | StorageSyncAction | LogoutAction | ExitHouseAction
 
 export interface SetUserAction {
   type: 'SET_USER',
   payload: User | null
 }
 
-export interface SetActiveHouseAction {
-  type: 'SET_ACTIVE_HOUSE',
-  payload: House | null
+export interface SetHouseResidentAction {
+  type: 'SET_HOUSE_RESIDENT',
+  payload: HouseResidentPayload
 }
 
 export interface SetTokenAction {
@@ -40,10 +61,14 @@ export interface SetTokenAction {
 }
 
 export interface StorageSyncAction {
-    type: 'SYNC_REQUEST'
-    payload: GlobalState
+  type: 'SYNC_REQUEST'
+  payload: GlobalState
 }
 
 export interface LogoutAction {
   type: 'LOGOUT'
+}
+
+export interface ExitHouseAction {
+  type: 'EXIT_HOUSE'
 }

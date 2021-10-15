@@ -20,10 +20,16 @@
 }
 
 .nav-content{
+  display: flex;
   margin-right: 1em;
+  flex-direction: row;
 }
 
-.puti-logo img {
+.nav-content button {
+  margin-right: 4em;
+}
+
+.nav-logo img {
   width: 30%;
   object-fit: contain;
   animation: puti-logo-beat infinite 1s ease-out;

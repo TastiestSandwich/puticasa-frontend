@@ -5,6 +5,7 @@ import Login from './views/auth/login/login';
 import Signup from './views/auth/signup/signup';
 import Logout from './views/auth/logout/logout';
 import Welcome from './views/welcome/welcome';
+import Dashboard from './views/dashboard/dashboard';
 import './app.css';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
           <Route path='/signup' component={Signup} exact />
           <Route path='/logout' component={Logout} exact />
           <Route path='/welcome' component={Welcome} exact />
+          <Route path='/dashboard' component={Dashboard} exact />
         </Switch>
       </Router>
     </div>

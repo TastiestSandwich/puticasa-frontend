@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { globalStoreContext } from '../../components/context/globalStore';
-import { Resident } from './houseCard/houseTypes';
+import { useHistory } from "react-router-dom";
+import { Resident } from '../../components/context/storeTypes';
 import HouseCard from './houseCard/houseCard';
+import { Button } from 'reactstrap';
 import './welcome.css';
 
 const Welcome = () => {
@@ -10,11 +12,12 @@ const Welcome = () => {
   const [residents, setResidents] = useState([] as Resident[]);
 
   const { state, dispatch } = useContext(globalStoreContext);
+  const history = useHistory();
 
   useEffect(() => {
     if (state.token === null) {
       // go back to login
-      window.location.replace('http://localhost:3000/');
+      history.push('/');
     } else if (state.user === null) {
       // fetch user
       fetch('http://127.0.0.1:8000/api/v1/users/auth/user/', {
@@ -30,7 +33,9 @@ const Welcome = () => {
           dispatch({ type: 'SET_USER', payload: data});
           setLoadingUser(false);
         });
-    } else if (state.activeHouse === null) {
+    } 
+
+    if (state.house === null) {
       // fetch houses
       const url = 'http://127.0.0.1:8000/api/residents/'
       console.log('Making call at ' + url)
@@ -49,7 +54,8 @@ const Welcome = () => {
         })
       
     } else {
-      // redirect to home
+      // redirect to dashboard
+      history.push('/dashboard');
     }
 
     setLoadingUser(false);
@@ -72,22 +78,31 @@ const Welcome = () => {
       return (<div></div>)
     
     } else {
+      const tenants: Resident[] = residents.filter(resident => resident.type !== 0)
+      const guests: Resident[] = residents.filter(resident => resident.type === 0)
+    
       return (
       <>
       <div className="housecard-tenant">
         <h3>You live here</h3>
         <div className="housecard-tenant-list">
-        { residents.map((resident) => (
+        { tenants.map((resident) => (
            <HouseCard resident={resident} key={resident.id} />
          ))}
+        <div className="housecard-button">
+          <Button color="secondary">+</Button>
+        </div>
         </div>
       </div>
       <div className="housecard-guest">
         <h3>You have visited</h3>
         <div className="housecard-guest-list">
-        { residents.map((resident) => (
+        { guests.map((resident) => (
            <HouseCard resident={resident} key={resident.id} />
          ))}
+        <div className="housecard-button">
+          <Button color="secondary">+</Button>
+        </div>
         </div>
       </div>
       </>

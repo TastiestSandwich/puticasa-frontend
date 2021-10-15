@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Resident, House } from './houseTypes';
+import { Resident, House, HouseResidentPayload } from '../../../components/context/storeTypes';
 import { globalStoreContext } from '../../../components/context/globalStore';
+import { useHistory } from "react-router-dom";
 import './houseCard.css';
 
 interface HouseProps {
@@ -14,6 +15,7 @@ const HouseCard = (props: HouseProps) => {
   const [house, setHouse] = useState(null as House | null)
 
   const { state, dispatch } = useContext(globalStoreContext);
+  const history = useHistory();
 
   useEffect(() => {
     if (state.token !== null && house === null) {
@@ -35,9 +37,21 @@ const HouseCard = (props: HouseProps) => {
     }
   )
 
+  const handleClick = () => {
+    if (loading || house === null) { return }
+    
+    const payload = {
+      house: house,
+      resident: resident
+    } as HouseResidentPayload
+
+    dispatch({type: 'SET_HOUSE_RESIDENT', payload: payload})
+    history.push('/dashboard');
+  }
+
   if(!loading && house !== null) {
     return (
-      <div className="house-card">
+      <div className="house-card" onClick={handleClick}>
         <div className="house-name"> { house.name } </div>
         <div className="house-description"> { house.description } </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { globalStoreContext } from '../../../components/context/globalStore';
+import { useHistory } from "react-router-dom";
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -9,10 +10,11 @@ const Signup = () => {
   const [loading, setLoading] = useState(true);
 
   const {state, dispatch} = useContext(globalStoreContext);
+  const history = useHistory();
 
   useEffect(() => {
     if (state.token !== null) {
-      window.location.replace('http://localhost:3000/welcome');
+      history.push('/welcome');
     } else {
       setLoading(false);
     }
@@ -38,7 +40,7 @@ const Signup = () => {
       .then(data => {
         if (data.key) {
           dispatch({type: 'SET_TOKEN', payload: data.key})
-          window.location.replace('http://localhost:3000/welcome');
+          history.push('/welcome');
         } else {
           setEmail('');
           setPassword1('');

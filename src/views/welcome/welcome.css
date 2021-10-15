@@ -18,6 +18,11 @@
   margin-top: 1.5em;
 }
 
+.housecard-button{
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
 .housecard-tenant-list{
   display: flex;
   flex-direction: row;

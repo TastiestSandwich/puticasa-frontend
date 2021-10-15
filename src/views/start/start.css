@@ -10,8 +10,8 @@
   margin: auto;
 }
 
-.puti-logo img {
-  width: 80%;
+.logo-zone img {
+  width: 80% !important;
   object-fit: contain;
   animation: puti-logo-beat infinite 1s ease-out;
 }

@@ -8,9 +8,7 @@ export default class Logo extends React.Component {
   render() {
 
     return (
-      <div className="puti-logo">
-        <img src={putilogo} alt="puticasa logo" title="olee la puticasa"/>
-      </div>
+      <img src={putilogo} alt="puticasa logo" title="olee la puticasa"/>
     )
   }
 }

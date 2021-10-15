@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { globalStoreContext } from '../../../components/context/globalStore';
+import { useHistory } from "react-router-dom";
 
 const Logout = () => {
   const [loading, setLoading] = useState(true);
 
   const {state, dispatch} = useContext(globalStoreContext);
+  const history = useHistory();
 
   useEffect(() => {
     if (state.token == null) {
-      window.location.replace('http://localhost:3000/');
+      history.push('/');
     } else {
       setLoading(false);
     }
@@ -27,7 +29,7 @@ const Logout = () => {
       .then(res => res.json())
       .then(data => {
         dispatch({type: 'LOGOUT'})
-        window.location.replace('http://localhost:3000/');
+        history.push('/');
       });
   };
 

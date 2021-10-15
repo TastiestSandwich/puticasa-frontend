@@ -1,12 +1,30 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'reactstrap';
 import './navbar.css';
 import Logo from '../logo/logo';
 import { globalStoreContext } from '../context/globalStore';
+import { useHistory } from "react-router-dom";
 
 const Navbar = () => {
 
   const {state, dispatch} = useContext(globalStoreContext);
+  const history = useHistory();
+
+  const renderExitHouse = () => {
+    if (state.house === null) {
+      return (<></>)
+    }
+
+    return (
+      <Button color="warning" onClick={handleExitHouse}>Exit House</Button>
+    )
+  }
+
+  const handleExitHouse = () => {
+    dispatch({type: "EXIT_HOUSE"})
+    history.push("/welcome")
+  }
 
   return (
     <nav>
@@ -23,8 +41,11 @@ const Navbar = () => {
           </div>
         </div>
         <div className="nav-content">
+          { renderExitHouse() }
           <div>
-            <Link to='/logout'>Logout</Link>
+            <Link to='/logout'>
+              <Button color="danger">Logout</Button>
+            </Link>
           </div>
         </div>
       </div>

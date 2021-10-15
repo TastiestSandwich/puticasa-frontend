@@ -6,7 +6,8 @@ import { assertNever } from '../../utils/utils';
 const initialStoreContext: GlobalContext = {
     state: {
         user: null,
-        activeHouse: null,
+        house: null,
+        resident: null,
         token: null,
     },
     dispatch: (_a) => {},
@@ -19,10 +20,11 @@ const reducer = (state: GlobalState, action: Action) => {
                 ...state,
                 user: action.payload
             };
-        case 'SET_ACTIVE_HOUSE':
+        case 'SET_HOUSE_RESIDENT':
             return {
                 ...state,
-                activeHouse: action.payload
+                house: action.payload.house,
+                resident: action.payload.resident
             };
         case 'SET_TOKEN':
             return {
@@ -36,6 +38,12 @@ const reducer = (state: GlobalState, action: Action) => {
         case 'LOGOUT':
             return {
                 ...initialStoreContext.state
+            }
+        case 'EXIT_HOUSE':
+            return {
+                ...state,
+                house: null,
+                resident: null
             }
         default:
             return assertNever(action);
